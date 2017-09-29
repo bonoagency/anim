@@ -4,8 +4,8 @@
   "description": "Tiny animation library",
   "main": "anim.js",
   "scripts": {
-    "code-style": "standard",
-    "minify": "uglifyjs anim.js -o anim.min.js"
+    "code-style": "standard anim.js --fix",
+    "minify": "uglifyjs anim.js -c -m -o anim.min.js"
   },
   "repository": {
     "type": "git",
