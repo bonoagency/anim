@@ -1,72 +1,75 @@
-anim
-====
+# Bannimator
 
-Anim is a tiny and bare bones animation library weighing in at [`7 KB`](https://raw.github.com/relay-zz/anim/master/anim.js) in plain code, **[`2.8 KB`](https://raw.github.com/relay/anim/master/anim.min.js)** when minified and **`1.5 KB`** when gzipped.
+<p align="left">
+  <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
+</p>
 
-Why Anim? Because sometimes if you only want a little animation, you may not want to pull in a full fledged library like jQuery which is `90 KB` minified and `32 KB` gzipped.
+Мини-библиотека для анимации, без зависимостей. Минифицированная версия - `3 KB`.
+Удобный вариант, когда отстутствует возможность использования более серзьезных библиотек для анимации (GSAP, Anime.js, Move.js и т.п.), в случае, когда необходима поддержка старых IE (IE6+) и нельзя использовать CSS-анимации.
 
-Anim can animate any property that accepts number and color values including but not limited to backgroundColor, opacity, width, scrollTop, etc.
+Например: баннерные размещения от Рамблер.
 
-demo
-=====
-http://relay-zz.github.io/anim_demo.html
+С помощью библиотеки можно анимировать любое свойство параметром которого является число или цвет (top, left, color, opacity, width, height и т.п.).
 
-features
-=====
-* Simple chaining syntax ``anim(---).anim(---).anim(---)``
-* 3 easing functions
-* shorthand syntax ``anim("div1", {opacity: 0.6}, 2)``
+## Функционал
 
-usage:
-=====
-``anim(node, properties, duration, ease*)``
-or ``anim(delay)``
-or ``anim(callbackFunction)``
+* Простой синтаксис цепочки вызовов ``anim(---).anim(---).anim(---)``
+* Easing-функции
+* Сокращенный синтаксис ``anim('div1', {opacity: 0.6}, 2)``
 
-* **node**: the node to animate, or the node's ID
-* **properties**: a map of CSS properties to animate (see below)
-* **duration**: time in seconds to run animation. e.g., 3.5 is 3.5 seconds
-* **ease** (optional): easing function name. Choose from "ease-in", "ease" (means: ease-in-out), "lin" (means: linear), and undefined means "ease-out". The individual easing properties will override this.
-* **delay** how long to wait before starting the next animation
-* **callbackFunction** function to call after animation finished
+## Использование
 
-The ``properties`` object takes the form of:
+``anim(node, properties, duration, ease*)`` или ``anim(delay)`` или ``anim(callbackFunction)``
 
-``{cssName: endValue}`` or ``{cssName: {to:endValue, fr:startValue*, e:easingFunction*, u:units*}}``
+* **node**: элемент DOM для анимации или его ID
+* **properties**: CSS-свойства для анимации (см. ниже)
+* **duration**: время анимации в секундах
+* **ease** (необязательный параметр): имя easing-функции.
+* **delay** : время ожидания перед стартом следующей анимации
+* **callbackFunction** функция, которую нужно вызвать после завершения анимации
+
+``properties`` объект свойств может быть следующего вида:
+
+``{cssName: endValue}`` или ``{cssName: {to:endValue, fr:startValue*, e:easingFunction*, u:units*}}``
 
 
-* **cssName**: the css property to animate; written in camelCase (margin-left --> marginLeft)
-* **to**: the end value of the CSS property. Can be number or string with optional units. e.g., 100, "100px", "50%", "3em"
+* **cssName**: CSS-свойство для анимации; писать в camelCase (margin-left -> marginLeft)
+* **to**: конечное значение CSS-свойства. Может быть числом или строкой с дополнительными единицами, например: 100, '100px', '50%', '3em'
 * **fr** (optional): the starting value of the CSS property. If not supplied, it is read from the node
-* **e** (optional): easing function name. (see above)
-* **u** (optional): unit of measurement. e.g., px, %, pt
+* **e** (необязательный параметр): имя easing-функции.
+* **u** (необязательный параметр): единицы измерения свойства, например: px, %, pt
 
-This function returns an object with one method ("anim"), which allows you to start another animation after the first one is done. If that second function is called with one parameter, it is assumed to be a callback function and is called after the last animation is done.
+Функция возвращает объект с одним методом ('anim'), позволяющим запустить следующую анимаци после того как завершилась первая. Если эта функция вызвана с одним параметром, предполагается, что это колбек-функция и будет вызвана после завершения последней анимации.
 
-examples:
-=====
-    anim(box, {opacity: {to: 0.2, fr: 1}},     2);  //long form specifying 'to' and 'from'
-    anim(box, {opacity: 0.2},                    2);
-    anim(box, {height:  300},                    2,    "ease-in");
-    anim(box, {height:  "14em",  width: "14em"}, 2);
-    anim(box, {marginLeft: "2%", fontSize: "20px"}, 2, "ease-out");
-    anim(document.body, {scrollTop: 500},   5,    "lin");
+## Примеры
 
-run 2 animations one after the other
+```javascript
+anim(box, {opacity: {to: 0.2, fr: 1}}, 2) // полный формат описывающий изменение свойства 'от-до'
+anim(box, {opacity: 0.2}, 2)
+anim(box, {height: 300}, 2, 'ease-in')
+anim(box, {height: '14em',  width: '14em'}, 2)
+anim(box, {marginLeft: '2%', fontSize: '20px'}, 2, 'ease-out')
+anim(document.body, {scrollTop: 500}, 5, 'lin')
+```
 
-    anim(box, {height:300}, 2)
-      .anim(box, {width:300}, 2)
-      .anim(function() { alert("all done") });
- 
-run 2 animations with a 1 second delay in between
+Запуск двух анимаций последовательно
 
-    anim(box, {height:300}, 2)
-      .anim(1)
-      .anim(box, {width:300}, 2);
+```javascript
+anim(box, {height: 300}, 2)
+  .anim(box, {width: 300}, 2)
+  .anim(function () { console.log('Done!') })
+```
 
+Запуск двух анимаций последовательно с задержкой в 1 секунду между ними
 
-support:
-=====
-Supports IE6+, Firefox 2+, Chrome, iOS, Android
+```javascript
+anim(box, {height: 300}, 2)
+  .anim(1)
+  .anim(box, {width: 300}, 2)
+```
 
-If ``requestAnimationFrame`` is available it is used, which provides the highest frame rate and throttling if the CPU is busy or if another tab is focused.
+## Браузерная поддержка
+
+IE6+, Firefox 2+, Chrome, iOS, Android
+
+Если в браузере доступна функция ``requestAnimationFrame`` то для анимации будет использоваться она, а не setTimeout, RAF позоволяет увеличить частоту кадров, плавность анимации и оптимизировать рендер если CPU загружен или в фокусе другая вкладка.
