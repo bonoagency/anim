@@ -1,11 +1,9 @@
 # Bannimator
 
-<p align="left">
-  <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
-</p>
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![https://raw.githubusercontent.com/bonoagency/bannimator/master/anim.min.js](http://img.badgesize.io/bonoagency/bannimator/master/anim.min.js.svg)
 
-Мини-библиотека для анимации, без зависимостей. Минифицированная версия - `3 KB`.
-Удобный вариант, когда отстутствует возможность использования более серзьезных библиотек для анимации (GSAP, Anime.js, Move.js и т.п.), в случае, когда необходима поддержка старых IE (IE6+) и нельзя использовать CSS-анимации.
+Мини-библиотека для анимации, без зависимостей (основана на библиотеке [anim by relay-zz](https://github.com/relay-zz/anim)). Минифицированная версия - `3 KB`. Удобный вариант, когда отстутствует возможность использования более серзьезных библиотек для анимации (GSAP, Anime.js, Move.js и т.п.), в случае, когда необходима поддержка старых IE (IE6+) и нельзя использовать CSS-анимации.
 
 Например: баннерные размещения от Рамблер.
 
@@ -13,31 +11,30 @@
 
 ## Функционал
 
-* Простой синтаксис цепочки вызовов ``anim(---).anim(---).anim(---)``
-* Easing-функции
-* Сокращенный синтаксис ``anim('div1', {opacity: 0.6}, 2)``
+- Простой синтаксис цепочки вызовов `anim(---).anim(---).anim(---)`
+- Easing-функции
+- Сокращенный синтаксис `anim('div1', {opacity: 0.6}, 2)`
 
 ## Использование
 
-``anim(node, properties, duration, ease*)`` или ``anim(delay)`` или ``anim(callbackFunction)``
+`anim(node, properties, duration, ease*)` или `anim(delay)` или `anim(callbackFunction)`
 
-* **node**: элемент DOM для анимации или его ID
-* **properties**: CSS-свойства для анимации (см. ниже)
-* **duration**: время анимации в секундах
-* **ease** (необязательный параметр): имя easing-функции.
-* **delay** : время ожидания перед стартом следующей анимации
-* **callbackFunction** функция, которую нужно вызвать после завершения анимации
+- **node**: элемент DOM для анимации или его ID
+- **properties**: CSS-свойства для анимации (см. ниже)
+- **duration**: время анимации в секундах
+- **ease** (необязательный параметр): имя easing-функции.
+- **delay** : время ожидания перед стартом следующей анимации
+- **callbackFunction** функция, которую нужно вызвать после завершения анимации
 
-``properties`` объект свойств может быть следующего вида:
+`properties` объект свойств может быть следующего вида:
 
-``{cssName: endValue}`` или ``{cssName: {to:endValue, fr:startValue*, e:easingFunction*, u:units*}}``
+`{cssName: endValue}` или `{cssName: {to:endValue, fr:startValue*, e:easingFunction*, u:units*}}`
 
-
-* **cssName**: CSS-свойство для анимации; писать в camelCase (margin-left -> marginLeft)
-* **to**: конечное значение CSS-свойства. Может быть числом или строкой с дополнительными единицами, например: 100, '100px', '50%', '3em'
-* **fr** (optional): the starting value of the CSS property. If not supplied, it is read from the node
-* **e** (необязательный параметр): имя easing-функции.
-* **u** (необязательный параметр): единицы измерения свойства, например: px, %, pt
+- **cssName**: CSS-свойство для анимации; писать в camelCase (margin-left -> marginLeft)
+- **to**: конечное значение CSS-свойства. Может быть числом или строкой с дополнительными единицами, например: 100, '100px', '50%', '3em'
+- **fr** (optional): the starting value of the CSS property. If not supplied, it is read from the node
+- **e** (необязательный параметр): имя easing-функции.
+- **u** (необязательный параметр): единицы измерения свойства, например: px, %, pt
 
 Функция возвращает объект с одним методом ('anim'), позволяющим запустить следующую анимаци после того как завершилась первая. Если эта функция вызвана с одним параметром, предполагается, что это колбек-функция и будет вызвана после завершения последней анимации.
 
@@ -70,6 +67,8 @@ anim(box, {height: 300}, 2)
 
 ## Браузерная поддержка
 
-IE6+, Firefox 2+, Chrome, iOS, Android
+| Chrome | Safari | IE  | Firefox |
+| --- | --- | --- | --- |
+| 24+ | 6+ | 6+ | 2+ |
 
-Если в браузере доступна функция ``requestAnimationFrame`` то для анимации будет использоваться она, а не setTimeout, RAF позоволяет увеличить частоту кадров, плавность анимации и оптимизировать рендер если CPU загружен или в фокусе другая вкладка.
+Если в браузере доступна функция `requestAnimationFrame` то для анимации будет использоваться она, а не setTimeout, RAF позоволяет увеличить частоту кадров, плавность анимации и оптимизировать рендер если CPU загружен или в фокусе другая вкладка.

@@ -160,17 +160,13 @@ var anim = (function (A) {
           e = o.e
           p = i
 
-          if (e === 'lin') {
-            p = 1 - p
-          } else if (e === 'ease') {
-            p = (0.5 - p) * 2
-            p = 1 - ((p * p * p - p * 3) + 2) / 4
-          } else if (e === 'ease-in') {
-            p = 1 - p
-            p = p * p * p
-          } else { // ease-out
-            p = 1 - p * p * p
+          if (e) {
+            console.log(e)
+            p = 1 - A.easeFn[e](p)
+          } else {
+            p = 1 - A.easeFn['linear'](p)
           }
+
           o.p = p
           o.fn(o, o.n, o.to, o.fr, o.a, o.e)
         }
@@ -263,6 +259,80 @@ var anim = (function (A) {
       v = [h[0] || p[0] || w || 0, h[1] || p[1] || x || 0, h[2] || p[2] || y || 0, o || z || 1]
     })
     return v
+  }
+
+  /*
+  * Easing Functions from https://gist.github.com/gre/1650294
+  * The t value for the range [0, 1] => [0, 1]
+  */
+
+  A.easeFn = {
+    // no easing, no acceleration
+    linear: function (t) { return t },
+    // accelerating from zero velocity
+    easeInQuad: function (t) { return t * t },
+    // decelerating to zero velocity
+    easeOutQuad: function (t) { return t * (2 - t) },
+    // acceleration until halfway, then deceleration
+    easeInOutQuad: function (t) { return t < 0.5 ? 2 * t * t : -1 + 2 * (2 - t) * t },
+    // alternative on that function
+    // easeOutInQuad: function (t) { return t < 0.5 ? A.easeFn.easeOutQuad(2 * t) * 0.5 : A.easeFn.easeInQuad((2 * (t - 0.5))) * 0.5 + 0.5 },
+    // accelerating from zero velocity
+    easeInCubic: function (t) { return t * t * t },
+    // decelerating to zero velocity
+    easeOutCubic: function (t) { return (--t) * t * t + 1 },
+    // acceleration until halfway, then deceleration
+    easeInOutCubic: function (t) { return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1 },
+    // accelerating from zero velocity
+    easeInQuart: function (t) { return t * t * t * t },
+    // decelerating to zero velocity
+    easeOutQuart: function (t) { return 1 - (--t) * t * t * t },
+    // acceleration until halfway, then deceleration
+    easeInOutQuart: function (t) { return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t },
+    // accelerating from zero velocity
+    easeInQuint: function (t) { return t * t * t * t * t },
+    // decelerating to zero velocity
+    easeOutQuint: function (t) { return 1 + (--t) * t * t * t * t },
+    // acceleration until halfway, then deceleration
+    easeInOutQuint: function (t) { return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t },
+    // elastic bounce effect at the beginning
+    easeInElastic: function (t) { return (0.04 - 0.04 / t) * Math.sin(25 * t) + 1 },
+    // elastic bounce effect at the end
+    easeOutElastic: function (t) { return 0.04 * t / (--t) * Math.sin(25 * t) },
+    // elastic bounce effect at the beginning and end
+    easeInOutElastic: function (t) { return (t -= 0.5) < 0 ? (0.01 + 0.01 / t) * Math.sin(50 * t) : (0.02 - 0.01 / t) * Math.sin(50 * t) + 1 },
+    easeInSine: function (t) { return -1 * Math.cos(t * (Math.PI / 2)) + 1 },
+    easeOutSine: function (t) { return Math.sin(t * (Math.PI / 2)) },
+    easeInOutSine: function (t) { return -0.5 * (Math.cos(Math.PI * t) - 1) },
+    // Increasing velocity until stop
+    easeInCirc: function (t) { var scaledTime = t / 1; return -1 * (Math.sqrt(1 - scaledTime * t) - 1) },
+    // Start fast, decreasing velocity until stop
+    easeOutCirc: function (t) { var t1 = t - 1; return Math.sqrt(1 - t1 * t1) },
+    // Fast increase in velocity, fast decrease in velocity
+    easeInOutCirc: function (t) { var scaledTime = t * 2; var scaledTime1 = scaledTime - 2; return scaledTime < 1 ? -0.5 * (Math.sqrt(1 - scaledTime * scaledTime) - 1) : 0.5 * (Math.sqrt(1 - scaledTime1 * scaledTime1) + 1) },
+    easeInBounce: function (t) {
+      return 1 - A.easeFn.easeOutBounce(1 - t)
+    },
+    easeOutBounce: function (t) {
+      var scaledTime = t / 1
+      var scaledTime2
+
+      if (scaledTime < (1 / 2.75)) {
+        return 7.5625 * scaledTime * scaledTime
+      } else if (scaledTime < (2 / 2.75)) {
+        scaledTime2 = scaledTime - (1.5 / 2.75)
+        return (7.5625 * scaledTime2 * scaledTime2) + 0.75
+      } else if (scaledTime < (2.5 / 2.75)) {
+        scaledTime2 = scaledTime - (2.25 / 2.75)
+        return (7.5625 * scaledTime2 * scaledTime2) + 0.9375
+      } else {
+        scaledTime2 = scaledTime - (2.625 / 2.75)
+        return (7.5625 * scaledTime2 * scaledTime2) + 0.984375
+      }
+    },
+    easeInOutBounce: function (t) {
+      return (t < 0.5) ? A.easeFn.easeInBounce(t * 2) * 0.5 : (A.easeFn.easeOutBounce((t * 2) - 1) * 0.5) + 0.5
+    }
   }
 
   return A

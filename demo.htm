@@ -69,10 +69,10 @@
       </td>
       <td>
         <textarea id="at" readonly>
-anim("a1", {width:"90%"}, 3, "ease-in").anim(1).anim("a1", {width:0}, 1, "ease-in");
-anim("a2", {width:"90%"}, 3, "ease-out").anim(1).anim("a2", {width:0}, 1, "ease-out");
-anim("a3", {width:"90%"}, 3, "ease").anim(1).anim("a3", {width:0}, 1, "ease").anim(1);
-anim("a4", {width:"90%"}, 3, "lin").anim(1).anim("a4", {width:0}, 1, "lin").anim(1).anim(goA);
+anim("a1", {width:"90%"}, 3, "easeInQuad").anim(1).anim("a1", {width:0}, 1, "easeInQuad");
+anim("a2", {width:"90%"}, 3, "easeOutQuad").anim(1).anim("a2", {width:0}, 1, "easeOutQuad");
+anim("a3", {width:"90%"}, 3, "easeInBounce").anim(1).anim("a3", {width:0}, 1, "easeInBounce").anim(1);
+anim("a4", {width:"90%"}, 3, "easeOutBounce").anim(1).anim("a4", {width:0}, 1, "easeOutBounce").anim(1).anim(goA);
       </textarea>
         <script>
           function goA() {
@@ -91,7 +91,7 @@ anim("a4", {width:"90%"}, 3, "lin").anim(1).anim("a4", {width:0}, 1, "lin").anim
         <textarea id="bt" readonly>
 anim(1)
 .anim("b1", {width:"150px", height:"150px"}, 0.5).anim(0.5)
-.anim("b1", {width:{to:"60px", e:"ease-in"}, height:"60px"}, 0.5).anim(0.5)
+.anim("b1", {width:{to:"60px", e:"easeInBounce"}, height:"60px"}, 0.5).anim(0.5)
 .anim(goB);
       </textarea>
         <script>
@@ -109,9 +109,9 @@ anim(1)
       </td>
       <td>
         <textarea id="ct" readonly>
-anim("c1", {borderRadius:"30px", left:"50%"}, 1.5, "ease-out")
+anim("c1", {borderRadius:"30px", left:"50%"}, 1.5, "easeInCirc")
 .anim(0.1)
-.anim("c1", {borderRadius:0, left:0}, 1.5, "ease-in")
+.anim("c1", {borderRadius:0, left:0}, 1.5, "easeInCirc")
 .anim(1)
 .anim(goC);
       </textarea>
