@@ -3,7 +3,7 @@
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![https://raw.githubusercontent.com/bonoagency/bannimator/master/anim.min.js](http://img.badgesize.io/bonoagency/bannimator/master/anim.min.js.svg)
 
-Мини-библиотека для анимации, без зависимостей. Минифицированная версия - `3 KB`. Удобный вариант, когда отстутствует возможность использования более серзьезных библиотек для анимации (GSAP, Anime.js, Move.js и т.п.), в случае, когда необходима поддержка старых IE (IE6+) и нельзя использовать CSS-анимации.
+Мини-библиотека для анимации, без зависимостей (основана на библиотеке [anim by relay-zz](https://github.com/relay-zz/anim)). Минифицированная версия - `3 KB`. Удобный вариант, когда отстутствует возможность использования более серзьезных библиотек для анимации (GSAP, Anime.js, Move.js и т.п.), в случае, когда необходима поддержка старых IE (IE6+) и нельзя использовать CSS-анимации.
 
 Например: баннерные размещения от Рамблер.
 
