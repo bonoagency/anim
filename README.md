@@ -1,7 +1,7 @@
 # Bannimator
 
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-![](http://img.badgesize.io/:https://github.com/bonoagency/bannimator/blob/master/anim.min.js.svg?style=flat&color=18FF92)
+![](http://img.badgesize.io/bonoagency/bannimator/blob/master/anim.min.js.svg?style=flat&color=18FF92)
 
 Мини-библиотека для анимации, без зависимостей. Минифицированная версия - `3 KB`. Удобный вариант, когда отстутствует возможность использования более серзьезных библиотек для анимации (GSAP, Anime.js, Move.js и т.п.), в случае, когда необходима поддержка старых IE (IE6+) и нельзя использовать CSS-анимации.
 
@@ -68,7 +68,7 @@ anim(box, {height: 300}, 2)
 ## Браузерная поддержка
 
 | Chrome | Safari | IE  | Firefox |
-| --- | --- | --- | --- | --- |
-| 24+ | 6+ | IE6+ | 2+ |
+| --- | --- | --- | --- |
+| 24+ | 6+ | 6+ | 2+ |
 
 Если в браузере доступна функция `requestAnimationFrame` то для анимации будет использоваться она, а не setTimeout, RAF позоволяет увеличить частоту кадров, плавность анимации и оптимизировать рендер если CPU загружен или в фокусе другая вкладка.
